@@ -132,11 +132,17 @@ def ReplySender(): # Construtor do recurso que responderá a requisição do Cli
 
     getTimeNow = getNTPServerInformations()
 
-    responseData = f"{getTimeNow['serverAddress']} {addressIPV4} {getTimeNow['ntp_now']}"
+    if getTimeNow != None:
 
-    bytesToSend = str.encode(responseData, "utf-8")
+        responseData = f"{getTimeNow['serverAddress']} {addressIPV4} {getTimeNow['ntp_now']}"
 
-    socketConstructor.sendto(bytesToSend, bytesAddressPair[1])
+        bytesToSend = str.encode(responseData, "utf-8")
+
+        socketConstructor.sendto(bytesToSend, bytesAddressPair[1])
+
+    else:
+
+        return None
 
 def exitServer(): # Função de Interrupção do Script.
 
